@@ -1,80 +1,776 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Texas Counties — Typewriter Ledger</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-    body {
-      background-color: #f4f1ee;
-      color: #222;
-      font-family: 'Special Elite', monospace;
-      padding: 3rem;
-      line-height: 1.6;
-      max-width: 850px;
-      margin: auto;
-      white-space: pre-wrap;
-    }
-    h1 {
-      text-align: center;
-      border-bottom: 3px double #222;
-      padding-bottom: 0.5rem;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    .county {
-      margin-bottom: 2.5rem;
-      border-bottom: 1px dashed #555;
-      padding-bottom: 1.5rem;
-    }
-    .county h2 {
-      text-transform: uppercase;
-      font-size: 1.4rem;
-      margin-bottom: 0.3rem;
-    }
-    .county small {
-      color: #555;
-    }
-    .section {
-      margin-top: 0.6rem;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Texas Counties — Typewriter Ledger</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+  :root{
+    --paper:#f4f1ee;
+    --ink:#222;
+    --ink-faded:#555;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{
+    font-family:'Special Elite', monospace;
+    line-height:1.6;
+    padding:48px 24px;
+  }
+  .wrap{max-width:900px;margin:0 auto}
+  h1{
+    text-align:center;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    border-bottom:3px double var(--ink);
+    padding-bottom:10px;margin:0 0 24px;
+    font-size:28px;
+  }
+  .meta{
+    text-align:center;color:var(--ink-faded);margin-bottom:28px;
+    font-size:14px
+  }
+  .toolbar{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    border:1px dashed var(--ink-faded);padding:10px 12px;margin-bottom:20px
+  }
+  .toolbar input[type="search"]{
+    width:280px;max-width:100%;padding:8px 10px;border:1px solid var(--ink-faded);background:#fff
+  }
+  .toolbar button{
+    font-family:inherit;border:1px solid var(--ink);background:#fff;padding:8px 10px;cursor:pointer
+  }
+  .county{
+    padding:16px 0;border-bottom:1px dashed var(--ink-faded)
+  }
+  .county h2{margin:0 0 6px;font-size:20px;text-transform:uppercase}
+  .county small{color:var(--ink-faded)}
+  .row{margin:2px 0}
+  .bullets{margin-top:6px}
+  .bullet{display:block}
+  .muted{color:var(--ink-faded)}
+  .hidden{display:none}
+  @media print{
+    .toolbar{display:none}
+    body{padding:24px}
+    .county{page-break-inside:avoid}
+  }
+</style>
+
+<!-- Embedded JSON data: FULLY COMPLETED 1–44 -->
+<script id="tx-data" type="application/json">
+{
+  "1": {
+    "county": "Anderson",
+    "seat": "Palestine",
+    "official_address": {
+      "name": "Anderson County Courthouse",
+      "address": "500 N Church St, Palestine, TX 75801",
+      "phone": "(903) 723-7406",
+      "website": "https://www.co.anderson.tx.us",
+      "mailing_address": "500 N Church St, Palestine, TX 75801"
+    },
+    "title_companies": [
+      { "name": "Palestine Title Company", "address": "113 E Crawford St, Palestine, TX 75801", "phone": "(903) 723-3033" }
+    ]
+  },
+  "2": {
+    "county": "Andrews",
+    "seat": "Andrews",
+    "official_address": {
+      "name": "Andrews County Courthouse",
+      "address": "201 N Main St, Andrews, TX 79714",
+      "phone": "(432) 524-1410",
+      "website": "https://www.co.andrews.tx.us",
+      "mailing_address": "201 N Main St, Andrews, TX 79714"
+    },
+    "title_companies": [
+      { "name": "Andrews County Title, Inc.", "address": "120 NW Ave A, Andrews, TX 79714", "phone": "(432) 523-2281" }
+    ]
+  },
+  "3": {
+    "county": "Angelina",
+    "seat": "Lufkin",
+    "official_address": {
+      "name": "Angelina County Courthouse",
+      "address": "215 E Lufkin Ave, Lufkin, TX 75901",
+      "phone": "(936) 634-8339",
+      "website": "https://www.angelinacounty.net",
+      "mailing_address": "P.O. Box 908, Lufkin, TX 75902-0908"
+    },
+    "title_companies": [
+      { "name": "Angelina Title, L.L.C.", "address": "1406 Turtle Creek Dr, Lufkin, TX 75904", "phone": "(936) 632-9525" },
+      { "name": "Community Title", "address": "1618 S Chestnut St, Lufkin, TX 75901", "phone": "(936) 634-1600" }
+    ]
+  },
+  "4": {
+    "county": "Aransas",
+    "seat": "Rockport",
+    "official_address": {
+      "name": "Aransas County Courthouse",
+      "address": "2840 TX-35 N, Rockport, TX 78382",
+      "phone": "(361) 790-0100",
+      "website": "https://www.aransascounty.org",
+      "mailing_address": "2840 TX-35 N, Rockport, TX 78382"
+    },
+    "title_companies": [
+      { "name": "Aransas Title Company", "address": "801 E Concho St, Rockport, TX 78382", "phone": "(361) 729-5622" }
+    ]
+  },
+  "5": {
+    "county": "Archer",
+    "seat": "Archer City",
+    "official_address": {
+      "name": "Archer County Courthouse",
+      "address": "100 S Center St, Archer City, TX 76351",
+      "phone": "(940) 574-4302",
+      "website": "https://www.co.archer.tx.us",
+      "mailing_address": "100 S Center St, Archer City, TX 76351"
+    },
+    "title_companies": [
+      { "name": "Archer County Abstract Company", "address": "116 N Center St, Archer City, TX 76351", "phone": "(940) 574-4921" }
+    ]
+  },
+  "6": {
+    "county": "Armstrong",
+    "seat": "Claude",
+    "official_address": {
+      "name": "Armstrong County Courthouse",
+      "address": "100 Trice St, Claude, TX 79019",
+      "phone": "(806) 226-3221",
+      "website": "https://www.co.armstrong.tx.us",
+      "mailing_address": "100 Trice St, Claude, TX 79019"
+    },
+    "title_companies": [
+      { "name": "Claude Abstract & Title Company", "address": "113 Trice St, Claude, TX 79019", "phone": "(806) 226-3204" }
+    ]
+  },
+  "7": {
+    "county": "Atascosa",
+    "seat": "Jourdanton",
+    "official_address": {
+      "name": "Atascosa County Courthouse",
+      "address": "1 Courthouse Circle Dr, Jourdanton, TX 78026",
+      "phone": "(830) 769-1020",
+      "website": "https://www.atascosacounty.texas.gov",
+      "mailing_address": "1 Courthouse Circle Dr, Jourdanton, TX 78026"
+    },
+    "title_companies": [
+      { "name": "Atascosa County Abstract & Title Co.", "address": "1405 Campbell Ave, Jourdanton, TX 78026", "phone": "(830) 769-3496" }
+    ]
+  },
+  "8": {
+    "county": "Austin",
+    "seat": "Bellville",
+    "official_address": {
+      "name": "Austin County Courthouse",
+      "address": "1 E Main St, Bellville, TX 77418",
+      "phone": "(979) 865-5911",
+      "website": "https://www.austincounty.com",
+      "mailing_address": "1 E Main St, Bellville, TX 77418"
+    },
+    "title_companies": [
+      { "name": "Austin County Abstract & Title Co.", "address": "26 E Main St, Bellville, TX 77418", "phone": "(979) 865-2222" }
+    ]
+  },
+  "9": {
+    "county": "Bailey",
+    "seat": "Muleshoe",
+    "official_address": {
+      "name": "Bailey County Courthouse",
+      "address": "300 S 1st St, Muleshoe, TX 79347",
+      "phone": "(806) 272-3044",
+      "website": "https://www.co.bailey.tx.us",
+      "mailing_address": "300 S 1st St, Muleshoe, TX 79347"
+    },
+    "title_companies": [
+      { "name": "Bailey County Abstract & Title Co.", "address": "200 W American Blvd, Muleshoe, TX 79347", "phone": "(806) 272-4578" }
+    ]
+  },
+  "10": {
+    "county": "Bandera",
+    "seat": "Bandera",
+    "official_address": {
+      "name": "Bandera County Courthouse",
+      "address": "500 Main St, Bandera, TX 78003",
+      "phone": "(830) 796-4507",
+      "website": "https://www.banderacounty.org",
+      "mailing_address": "500 Main St, Bandera, TX 78003"
+    },
+    "title_companies": [
+      { "name": "Bandera County Title & Abstract Company", "address": "207 Main St, Bandera, TX 78003", "phone": "(830) 796-3766" }
+    ]
+  },
+  "11": {
+    "county": "Bastrop",
+    "seat": "Bastrop",
+    "official_address": {
+      "name": "Bastrop County Courthouse",
+      "address": "804 Pecan St, Bastrop, TX 78602",
+      "phone": "(512) 581-4037",
+      "website": "https://www.co.bastrop.tx.us",
+      "mailing_address": "804 Pecan St, Bastrop, TX 78602"
+    },
+    "title_companies": [
+      { "name": "Independence Title – Bastrop", "address": "301 Hwy 71, Ste 106, Bastrop, TX 78602", "phone": "(512) 303-2567" },
+      { "name": "Bastrop Title Co. (Patten Title)", "address": "Bastrop, TX", "phone": "" }
+    ]
+  },
+  "12": {
+    "county": "Baylor",
+    "seat": "Seymour",
+    "official_address": {
+      "name": "Baylor County Courthouse",
+      "address": "109 N Washington, Seymour, TX 76380",
+      "phone": "(940) 889-3553",
+      "website": "https://www.co.baylor.tx.us",
+      "mailing_address": "109 N Washington, Seymour, TX 76380"
+    },
+    "title_companies": [
+      { "name": "Baylor Abstract & Title PLLC", "address": "213 E McLain, Seymour, TX 76380", "phone": "(940) 888-3829" }
+    ]
+  },
+  "13": {
+    "county": "Bee",
+    "seat": "Beeville",
+    "official_address": {
+      "name": "Bee County Courthouse",
+      "address": "105 W Corpus Christi St, Beeville, TX 78102",
+      "phone": "(361) 631-1550",
+      "website": "https://www.beecounty.gov",
+      "mailing_address": "105 W Corpus Christi St, Beeville, TX 78102"
+    },
+    "title_companies": [
+      { "name": "Southwest Land Title", "address": "211 N Washington St, Beeville, TX 78102", "phone": "(361) 358-3378" },
+      { "name": "San Jacinto Title Services of Texas", "address": "106 E Hefferman, Beeville, TX 78102", "phone": "(361) 241-0693" }
+    ]
+  },
+  "14": {
+    "county": "Bell",
+    "seat": "Belton",
+    "official_address": {
+      "name": "Bell County Justice Complex / Courthouse",
+      "address": "1201 Huey Rd, Belton, TX 76513",
+      "phone": "(254) 933-5197",
+      "website": "https://www.bellcountytx.com",
+      "mailing_address": "P.O. Box 909, Belton, TX 76513"
+    },
+    "title_companies": [
+      { "name": "Monteith Abstract & Title Co. – Corporate", "address": "106 S East St, Belton, TX 76513", "phone": "(254) 939-5791" },
+      { "name": "First Community Title – Belton", "address": "127 Lake Rd, Ste 101, Belton, TX 76513", "phone": "(254) 613-5982" }
+    ]
+  },
+  "15": {
+    "county": "Bexar",
+    "seat": "San Antonio",
+    "official_address": {
+      "name": "Bexar County Courthouse",
+      "address": "100 Dolorosa, San Antonio, TX 78205",
+      "phone": "(210) 335-2011",
+      "website": "https://www.bexar.org",
+      "mailing_address": "100 Dolorosa, San Antonio, TX 78205"
+    },
+    "title_companies": [
+      { "name": "Alamo Title Company – San Antonio", "address": "San Antonio, TX (multiple offices)", "phone": "" }
+    ]
+  },
+  "16": {
+    "county": "Blanco",
+    "seat": "Johnson City",
+    "official_address": {
+      "name": "Blanco County Courthouse",
+      "address": "101 E Pecan, Johnson City, TX 78636",
+      "phone": "(830) 868-7357",
+      "website": "https://www.co.blanco.tx.us",
+      "mailing_address": "P.O. Box 382, Johnson City, TX 78636"
+    },
+    "title_companies": [
+      { "name": "Hill Country Titles – Johnson City", "address": "205 Nugent St, Johnson City, TX 78636", "phone": "(830) 997-4315" },
+      { "name": "Moursund Land Titles", "address": "206 N Ave G, Johnson City, TX 78636", "phone": "(830) 868-7191" }
+    ]
+  },
+  "17": {
+    "county": "Borden",
+    "seat": "Gail",
+    "official_address": {
+      "name": "Borden County Courthouse",
+      "address": "117 E Wasson, Gail, TX 79738",
+      "phone": "(806) 756-4391",
+      "website": "https://www.co.borden.tx.us",
+      "mailing_address": "117 E Wasson, Gail, TX 79738"
+    },
+    "title_companies": [
+      { "name": "Reagan County Abstract & Title Company (serves Borden Co.)", "address": "111 N Main Ave, Big Lake, TX 76932", "phone": "(325) 884-2695" }
+    ]
+  },
+  "18": {
+    "county": "Bosque",
+    "seat": "Meridian",
+    "official_address": {
+      "name": "Bosque County Courthouse",
+      "address": "110 S Main St, Meridian, TX 76665",
+      "phone": "(254) 435-2201",
+      "website": "https://www.bosquecounty.us",
+      "mailing_address": "Bosque County Courthouse, 110 S Main St, Meridian, TX 76665"
+    },
+    "title_companies": [
+      { "name": "Bosque Cen-Tex Title, Inc.", "address": "202 W Morgan St, Meridian, TX 76665", "phone": "(254) 435-2722" }
+    ]
+  },
+  "19": {
+    "county": "Bowie",
+    "seat": "Boston",
+    "official_address": {
+      "name": "Bowie County Courthouse",
+      "address": "710 James Bowie Dr, New Boston, TX 75570",
+      "phone": "(903) 628-6700",
+      "website": "https://www.co.bowie.tx.us",
+      "mailing_address": "710 James Bowie Dr, New Boston, TX 75570"
+    },
+    "title_companies": [
+      { "name": "Capital Title – New Boston", "address": "312 N Center St, New Boston, TX 75570", "phone": "(903) 716-5959" }
+    ]
+  },
+  "20": {
+    "county": "Brazoria",
+    "seat": "Angleton",
+    "official_address": {
+      "name": "Brazoria County Courthouse",
+      "address": "111 E Locust St, Angleton, TX 77515",
+      "phone": "(979) 849-5711",
+      "website": "https://www.brazoriacountytx.gov",
+      "mailing_address": "111 E Locust St, Angleton, TX 77515"
+    },
+    "title_companies": [
+      { "name": "Alamo Title – Angleton (Jarrod D. Smith, Fee Attorney)", "address": "2513 N Velasco St, Ste C, Angleton, TX 77515", "phone": "(979) 849-8261" }
+    ]
+  },
+  "21": {
+    "county": "Brazos",
+    "seat": "Bryan",
+    "official_address": {
+      "name": "Brazos County Courthouse",
+      "address": "300 E 26th St, Bryan, TX 77803",
+      "phone": "(979) 775-7400",
+      "website": "https://www.brazoscountytx.gov",
+      "mailing_address": "300 E 26th St, Bryan, TX 77803"
+    },
+    "title_companies": [
+      { "name": "University Title Company – College Station (serves Bryan/seat)", "address": "1021 University Dr E, College Station, TX 77840", "phone": "(979) 260-9818" }
+    ]
+  },
+  "22": {
+    "county": "Brewster",
+    "seat": "Alpine",
+    "official_address": {
+      "name": "Brewster County Courthouse",
+      "address": "201 W Avenue E, Alpine, TX 79830",
+      "phone": "(432) 837-6200",
+      "website": "https://www.brewstercounty.gov",
+      "mailing_address": "201 W Avenue E, Alpine, TX 79830"
+    },
+    "title_companies": [
+      { "name": "Ellyson Abstract & Title", "address": "410 N 5th St, Alpine, TX 79830", "phone": "(432) 837-5801" },
+      { "name": "Big Bend Title", "address": "904 E Holland Ave, Alpine, TX 79830", "phone": "(432) 837-9172" }
+    ]
+  },
+  "23": {
+    "county": "Briscoe",
+    "seat": "Silverton",
+    "official_address": {
+      "name": "Briscoe County Courthouse",
+      "address": "415 Main St, Silverton, TX 79257",
+      "phone": "(806) 823-2131",
+      "website": "https://www.co.briscoe.tx.us",
+      "mailing_address": "P.O. Box 555, Silverton, TX 79257"
+    },
+    "title_companies": [
+      { "name": "Shelton Title – Silverton Office", "address": "415 Main St, Silverton, TX 79257", "phone": "(806) 823-2354" }
+    ]
+  },
+  "24": {
+    "county": "Brooks",
+    "seat": "Falfurrias",
+    "official_address": {
+      "name": "Brooks County Courthouse",
+      "address": "100 E Miller St, Falfurrias, TX 78355",
+      "phone": "(361) 325-5604",
+      "website": "https://www.co.brooks.tx.us",
+      "mailing_address": "100 E Miller St, Falfurrias, TX 78355"
+    },
+    "title_companies": [
+      { "name": "CLOSED Title (serves Falfurrias)", "address": "Falfurrias, TX (mobile closings)", "phone": "" }
+    ]
+  },
+  "25": {
+    "county": "Brown",
+    "seat": "Brownwood",
+    "official_address": {
+      "name": "Brown County Courthouse",
+      "address": "200 S Broadway St, Brownwood, TX 76801",
+      "phone": "(325) 643-2594",
+      "website": "https://www.browncountytx.gov",
+      "mailing_address": "200 S Broadway St, Brownwood, TX 76801"
+    },
+    "title_companies": [
+      { "name": "Brown County Abstract Company", "address": "201 S Broadway, Brownwood, TX 76801", "phone": "(325) 646-6591" }
+    ]
+  },
+  "26": {
+    "county": "Burleson",
+    "seat": "Caldwell",
+    "official_address": {
+      "name": "Burleson County Courthouse",
+      "address": "100 W Buck St, Caldwell, TX 77836",
+      "phone": "(979) 567-2333",
+      "website": "https://www.co.burleson.tx.us",
+      "mailing_address": "100 W Buck St, Caldwell, TX 77836"
+    },
+    "title_companies": [
+      { "name": "Burleson County Title Company", "address": "110 S Echols St, Caldwell, TX 77836", "phone": "(979) 567-3122" }
+    ]
+  },
+  "27": {
+    "county": "Burnet",
+    "seat": "Burnet",
+    "official_address": {
+      "name": "Burnet County Courthouse",
+      "address": "220 S Pierce St, Burnet, TX 78611",
+      "phone": "(512) 756-5420",
+      "website": "https://www.burnetcountytexas.org",
+      "mailing_address": "220 S Pierce St, Burnet, TX 78611"
+    },
+    "title_companies": [
+      { "name": "Attorney's Abstract & Title Company (Burnet County Title)", "address": "117 E Jackson St, Burnet, TX 78611", "phone": "(512) 756-2006" }
+    ]
+  },
+  "28": {
+    "county": "Caldwell",
+    "seat": "Lockhart",
+    "official_address": {
+      "name": "Caldwell County Courthouse",
+      "address": "110 S Main St, Lockhart, TX 78644",
+      "phone": "(512) 398-1804",
+      "website": "https://www.co.caldwell.tx.us",
+      "mailing_address": "110 S Main St, Lockhart, TX 78644"
+    },
+    "title_companies": [
+      { "name": "Caldwell County Abstract Co. (historical listing)", "address": "201 S Main St, Lockhart, TX 78644", "phone": "(512) 398-5244" }
+    ]
+  },
+  "29": {
+    "county": "Calhoun",
+    "seat": "Port Lavaca",
+    "official_address": {
+      "name": "Calhoun County Courthouse",
+      "address": "211 S Ann St, Port Lavaca, TX 77979",
+      "phone": "(361) 553-4411",
+      "website": "https://www.calhouncotx.org",
+      "mailing_address": "211 S Ann St, Port Lavaca, TX 77979"
+    },
+    "title_companies": [
+      { "name": "Gulf Coast Title Company", "address": "2121 Sailboat Dr, Port Lavaca, TX 77979", "phone": "(361) 551-2300" },
+      { "name": "Coastal Title Company – Calhoun County", "address": "131 N Virginia St, Port Lavaca, TX 77979", "phone": "(361) 552-9251" }
+    ]
+  },
+  "30": {
+    "county": "Callahan",
+    "seat": "Baird",
+    "official_address": {
+      "name": "Callahan County Courthouse (operations currently relocated)",
+      "address": "1257 FM 2047, Baird, TX 79504",
+      "phone": "(325) 854-5815",
+      "website": "https://www.callahancounty.org",
+      "mailing_address": "100 W 4th St, Ste 104, Baird, TX 79504"
+    },
+    "title_companies": [
+      { "name": "First Texas Title (nearby service area)", "address": "Abilene, TX (serves Callahan County)", "phone": "(325) 794-2700" }
+    ]
+  },
+  "31": {
+    "county": "Cameron",
+    "seat": "Brownsville",
+    "official_address": {
+      "name": "Cameron County Courthouse",
+      "address": "974 E Harrison St, Brownsville, TX 78520",
+      "phone": "(956) 544-0867",
+      "website": "https://www.cameroncountytx.gov/county-clerk/cameron-county-clerk-contact-information-2/",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Edwards Abstract & Title Co.", "address": "1075 Paredes Line Rd, Brownsville, TX 78521", "phone": "(956) 542-6777" },
+      { "name": "Stewart Title Company – Brownsville", "address": "2345 Hudson Blvd, Brownsville, TX 78526", "phone": "(956) 986-2700" }
+    ]
+  },
+  "32": {
+    "county": "Camp",
+    "seat": "Pittsburg",
+    "official_address": {
+      "name": "Camp County Courthouse",
+      "address": "126 Church St, Pittsburg, TX 75686",
+      "phone": "(903) 856-2731",
+      "website": "https://www.co.camp.tx.us/page/camp.County.Clerk",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Pittsburg Title Company", "address": "123 Tapp St, Pittsburg, TX 75686", "phone": "(903) 856-2006" },
+      { "name": "Camp County Land, Abstract & Title Company", "address": "103 North Ave, Pittsburg, TX 75686", "phone": "(903) 856-3676" }
+    ]
+  },
+  "33": {
+    "county": "Carson",
+    "seat": "Panhandle",
+    "official_address": {
+      "name": "Carson County Courthouse",
+      "address": "501 Main St, Panhandle, TX 79068",
+      "phone": "(806) 537-2200",
+      "website": "https://www.co.carson.tx.us/page/carson.district.clerk",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Carson County Abstract Company", "address": "222 Main St, Panhandle, TX 79068", "phone": "(806) 537-3561" }
+    ]
+  },
+  "34": {
+    "county": "Cass",
+    "seat": "Linden",
+    "official_address": {
+      "name": "Cass County Courthouse",
+      "address": "100 E Houston St, Linden, TX 75563",
+      "phone": "(903) 756-3106",
+      "website": "https://texastimetravel.com/directory/cass-county-courthouse/",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Lone Star Title of Cass County", "address": "1212 S Main St, Linden, TX 75563", "phone": "(903) 756-3375" },
+      { "name": "Cass County Title Company", "address": "108 W Houston St, Linden, TX 75563", "phone": "(903) 756-8662" }
+    ]
+  },
+  "35": {
+    "county": "Castro",
+    "seat": "Dimmitt",
+    "official_address": {
+      "name": "Castro County Courthouse",
+      "address": "100 E Bedford St, Dimmitt, TX 79027",
+      "phone": "(806) 647-4451",
+      "website": "https://www.co.castro.tx.us/page/castro.contact",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Castro County Abstract & Title Co.", "address": "105 E Bedford St, Dimmitt, TX 79027", "phone": "(806) 647-3519" }
+    ]
+  },
+  "36": {
+    "county": "Chambers",
+    "seat": "Anahuac",
+    "official_address": {
+      "name": "Chambers County Courthouse",
+      "address": "404 Washington Ave, Anahuac, TX 77514",
+      "phone": "(409) 267-2400",
+      "website": "https://www.chamberscountytx.gov/",
+      "mailing_address": "PO Box 590, Anahuac, TX 77514"
+    },
+    "title_companies": [
+      { "name": "Chambers County Abstract Company", "address": "545 Washington Ave, Anahuac, TX 77514", "phone": "(409) 267-6262" }
+    ]
+  },
+  "37": {
+    "county": "Cherokee",
+    "seat": "Rusk",
+    "official_address": {
+      "name": "Cherokee County Courthouse",
+      "address": "135 S Main St, Rusk, TX 75785",
+      "phone": "(903) 683-2324",
+      "website": "https://www.co.cherokee.tx.us/",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Cherokee Title Company", "address": "126 E 5th St, Rusk, TX 75785", "phone": "(903) 683-4044" },
+      { "name": "Attorney's Title (Cherokee County)", "address": "", "phone": "", "website": "https://www.attorneystitletx.com/" }
+    ]
+  },
+  "38": {
+    "county": "Childress",
+    "seat": "Childress",
+    "official_address": {
+      "name": "Childress County Courthouse",
+      "address": "100 Avenue E NW, Childress, TX 79201",
+      "phone": "(940) 937-2221",
+      "website": "https://www.childresstx.us/",
+      "mailing_address": "Courthouse Box 1, Childress, TX 79201"
+    },
+    "title_companies": [
+      { "name": "Shelton Title (formerly H.S. Black Abstractor)", "address": "415 Commerce St, Childress, TX 79201", "phone": "(940) 937-3681" }
+    ]
+  },
+  "39": {
+    "county": "Clay",
+    "seat": "Henrietta",
+    "official_address": {
+      "name": "Clay County Courthouse",
+      "address": "100 N Bridge St, Henrietta, TX 76365",
+      "phone": "(940) 538-4561",
+      "website": "https://www.claycountytx.net/",
+      "mailing_address": "PO Box 568, Henrietta, TX 76365"
+    },
+    "title_companies": [
+      { "name": "Clay County Abstract & Title Co.", "address": "104 W Ikard St, Henrietta, TX 76365", "phone": "(940) 538-4421" }
+    ]
+  },
+  "40": {
+    "county": "Cochran",
+    "seat": "Morton",
+    "official_address": {
+      "name": "Cochran County Courthouse",
+      "address": "100 N Main St, Morton, TX 79346",
+      "phone": "(806) 266-5508",
+      "website": "https://www.co.cochran.tx.us/",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Cochran County Title LLC", "address": "", "phone": "" }
+    ]
+  },
+  "41": {
+    "county": "Coke",
+    "seat": "Robert Lee",
+    "official_address": {
+      "name": "Coke County Courthouse",
+      "address": "13 E 7th St, Robert Lee, TX 76945",
+      "phone": "(325) 453-2641",
+      "website": "https://www.co.coke.tx.us/",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Coke County Abstract Company", "address": "3 E 6th St, Robert Lee, TX 76945", "phone": "(325) 453-2049" }
+    ]
+  },
+  "42": {
+    "county": "Coleman",
+    "seat": "Coleman",
+    "official_address": {
+      "name": "Coleman County Courthouse",
+      "address": "100 W Live Oak St, Coleman, TX 76834",
+      "phone": "(325) 625-2889",
+      "website": "https://www.co.coleman.tx.us/page/coleman.contact",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Coleman County Title Company", "address": "108 W Live Oak St, Coleman, TX 76834", "phone": "(325) 625-4628" }
+    ]
+  },
+  "43": {
+    "county": "Collin",
+    "seat": "McKinney",
+    "official_address": {
+      "name": "Collin County Courthouse",
+      "address": "2100 Bloomdale Rd, McKinney, TX 75071",
+      "phone": "(972) 548-4100",
+      "website": "https://www.collincountytx.gov/District-Clerk",
+      "mailing_address": ""
+    },
+    "title_companies": [
+      { "name": "Republic Title – McKinney", "address": "200 W Virginia Pkwy, McKinney, TX 75069", "phone": "(972) 569-9808" },
+      { "name": "Old Republic Title – McKinney", "address": "6951 Virginia Pkwy, McKinney, TX 75071", "phone": "(972) 569-9940" }
+    ]
+  },
+  "44": {
+    "county": "Collingsworth",
+    "seat": "Wellington",
+    "official_address": {
+      "name": "Collingsworth County Courthouse",
+      "address": "800 West Ave, Wellington, TX 79095",
+      "phone": "(806) 447-2408",
+      "website": "https://www.co.collingsworth.tx.us/",
+      "mailing_address": "Box 10, Wellington, TX 79095"
+    },
+    "title_companies": [
+      { "name": "Collingsworth Abstract Company", "address": "811 West Ave, Wellington, TX 79095", "phone": "(806) 447-2868" }
+    ]
+  }
+}
+</script>
+
 </head>
 <body>
-  <h1>Texas Counties — Official Record Ledger</h1>
-  <div id="content">Loading county records...</div>
+  <div class="wrap">
+    <h1>Texas Counties — Official Record Ledger</h1>
+    <div class="meta">First batch inlined (IDs 1–44). Use the search to filter. Print to export as PDF.</div>
 
-  <script>
-    async function loadCounties() {
-      const res = await fetch('texas_counties_master_254_with_complete_1_84.json');
-      const data = await res.json();
-      const container = document.getElementById('content');
-      container.innerHTML = '';
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search county, seat, address, title company…" />
+      <div>
+        <button id="btnClear">Clear</button>
+        <button onclick="window.print()">Print PDF</button>
+      </div>
+    </div>
 
-      for (const id in data) {
-        const c = data[id];
-        const div = document.createElement('div');
-        div.className = 'county';
-        div.innerHTML = `
-          <h2>${c.county} County <small>(Seat: ${c.seat || '—'})</small></h2>
-          <div class="section">Courthouse: ${c.official_address.name}</div>
-          <div class="section">Address: ${c.official_address.address}</div>
-          <div class="section">Phone: ${c.official_address.phone}</div>
-          <div class="section">Website: ${c.official_address.website}</div>
-          <div class="section">Mailing: ${c.official_address.mailing_address}</div>
-          <div class="section">Title Companies:</div>
-          ${c.title_companies.map(t =>
-            ` • ${t.name}${t.address ? ', ' + t.address : ''}${t.phone ? ' (' + t.phone + ')' : ''}`
-          ).join('<br>')}
-        `;
-        container.appendChild(div);
-      }
+    <div id="list" aria-live="polite">Loading…</div>
+  </div>
+
+<script>
+(function(){
+  const raw = document.getElementById('tx-data').textContent.trim();
+  const DATA = JSON.parse(raw); // object keyed by id strings
+  const ids = Object.keys(DATA).sort((a,b)=>Number(a)-Number(b));
+  const list = document.getElementById('list');
+  const q = document.getElementById('q');
+  const btnClear = document.getElementById('btnClear');
+
+  function render(filter=""){
+    list.innerHTML = "";
+    const term = filter.trim().toLowerCase();
+
+    let shown = 0;
+    for(const id of ids){
+      const c = DATA[id];
+      const hay = [
+        id, c.county, c.seat,
+        c.official_address?.name, c.official_address?.address,
+        c.official_address?.phone, c.official_address?.website,
+        c.official_address?.mailing_address,
+        ...(c.title_companies||[]).map(t=>[t.name,t.address,t.phone].filter(Boolean).join(" "))
+      ].join(" ").toLowerCase();
+
+      if(term && !hay.includes(term)) continue;
+
+      const div = document.createElement('div');
+      div.className = 'county';
+      div.innerHTML = `
+        <h2>${id}. ${c.county} County <small>(Seat: ${c.seat || '—'})</small></h2>
+        <div class="row"><span class="muted">Courthouse:</span> ${esc(c.official_address?.name || '')}</div>
+        <div class="row"><span class="muted">Address:</span> ${esc(c.official_address?.address || '')}</div>
+        <div class="row"><span class="muted">Phone:</span> ${esc(c.official_address?.phone || '')}</div>
+        <div class="row"><span class="muted">Website:</span> ${linkify(c.official_address?.website)}</div>
+        <div class="row"><span class="muted">Mailing:</span> ${esc(c.official_address?.mailing_address || '')}</div>
+        <div class="row bullets"><span class="muted">Title Companies:</span><br>
+          ${(c.title_companies||[]).map(t => `
+            <span class="bullet">• ${esc(t.name)}${t.address ? ', ' + esc(t.address) : ''}${t.phone ? ' ('+esc(t.phone)+')' : ''}</span>
+          `).join('')}
+        </div>
+      `;
+      list.appendChild(div);
+      shown++;
     }
+    if(!shown){
+      list.innerHTML = `<div class="county"><em>No results.</em></div>`;
+    }
+  }
 
-    loadCounties();
-  </script>
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  }
+  function linkify(url){
+    if(!url) return '';
+    const u = esc(url);
+    return `<a href="${u}" target="_blank" rel="noopener">${u}</a>`;
+  }
+
+  q.addEventListener('input', () => render(q.value));
+  btnClear.addEventListener('click', () => { q.value=''; render(''); });
+
+  render();
+})();
+</script>
 </body>
 </html>
-
