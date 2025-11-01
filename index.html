@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Texas County Courthouses & Title Companies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+    header { background: #003366; color: #fff; padding: 1rem 2rem; }
+    h1 { margin: 0; }
+    main { max-width: 900px; margin: 2rem auto; padding: 1rem; background: #fff; border-radius: 8px; }
+    section { margin-bottom: 2rem; border-bottom: 1px solid #eee; padding-bottom: 1.5rem; }
+    section:last-child { border-bottom: none; }
+    h2 { color: #003366; margin-top: 0; }
+    .courthouse, .titles { margin: 0.25rem 0 0.75rem 0; }
+    .titles { margin-left: 1rem; }
+    .title-company { background: #e3eaf3; margin-bottom: 0.5rem; padding: 0.5rem 1rem; border-radius: 5px; }
+    a { color: #195ca7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      main { padding: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Texas County Courthouses & Title Companies</h1>
+    <p style="margin:0.4em 0 0 0;">Data sourced from <code>data.json</code></p>
+  </header>
+  <main id="counties-root">
+    <noscript>This page requires JavaScript enabled to display the data.</noscript>
+  </main>
+  <script>
+    // Fetch and display county/title company data
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        const root = document.getElementById('counties-root');
+        // Convert keys to numeric, sort by county name
+        const counties = Object.values(data).sort((a, b) => a.county.localeCompare(b.county));
+        counties.forEach(county => {
+          const section = document.createElement('section');
+          section.innerHTML = `
+            <h2>${county.county} County <small style="font-size:0.7em; color:#666;">(Seat: ${county.seat})</small></h2>
+            <div class="courthouse">
+              <strong>Courthouse:</strong> ${county.official_address.name}<br>
+              <strong>Address:</strong> ${county.official_address.address}<br>
+              <strong>Mailing:</strong> ${county.official_address.mailing_address}<br>
+              <strong>Phone:</strong> <a href="tel:${county.official_address.phone.replace(/[^0-9]/g,'')}">${county.official_address.phone}</a><br>
+              <strong>Website:</strong> <a href="${county.official_address.website}" target="_blank">${county.official_address.website}</a>
+            </div>
+            <div class="titles">
+              <strong>Title Companies:</strong>
+              ${county.title_companies && county.title_companies.length > 0
+                ? county.title_companies.map(tc => `
+                  <div class="title-company">
+                    <strong>${tc.name}</strong><br>
+                    ${tc.address ? `<span>${tc.address}</span><br>` : ''}
+                    ${tc.phone ? `<span>Phone: <a href="tel:${tc.phone.replace(/[^0-9]/g,'')}">${tc.phone}</a></span>` : ''}
+                  </div>
+                `).join('')
+                : '<div class="title-company"><em>No title companies listed.</em></div>'
+              }
+            </div>
+          `;
+          root.appendChild(section);
+        });
+      })
+      .catch(err => {
+        document.getElementById('counties-root').innerHTML =
+          '<div style="color:#c00">Failed to load data.json. Please ensure the file exists and is valid.</div>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
