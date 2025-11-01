@@ -1,0 +1,182 @@
+{
+  "1": {
+    "county": "Anderson",
+    "seat": "Palestine",
+    "official_address": {
+      "name": "Anderson County Courthouse",
+      "address": "500 N Church St, Palestine, TX 75801",
+      "phone": "(903) 723-7406",
+      "website": "https://www.co.anderson.tx.us",
+      "mailing_address": "500 N Church St, Palestine, TX 75801"
+    },
+    "title_companies": [
+      {
+        "name": "Palestine Title Company",
+        "address": "113 E Crawford St, Palestine, TX 75801",
+        "phone": "(903) 723-3033"
+      }
+    ]
+  },
+  "2": {
+    "county": "Andrews",
+    "seat": "Andrews",
+    "official_address": {
+      "name": "Andrews County Courthouse",
+      "address": "201 N Main St, Andrews, TX 79714",
+      "phone": "(432) 524-1410",
+      "website": "https://www.co.andrews.tx.us",
+      "mailing_address": "201 N Main St, Andrews, TX 79714"
+    },
+    "title_companies": [
+      {
+        "name": "Andrews County Title, Inc.",
+        "address": "120 NW Ave A, Andrews, TX 79714",
+        "phone": "(432) 523-2281"
+      }
+    ]
+  },
+  "3": {
+    "county": "Angelina",
+    "seat": "Lufkin",
+    "official_address": {
+      "name": "Angelina County Courthouse",
+      "address": "215 E Lufkin Ave, Lufkin, TX 75901",
+      "phone": "(936) 634-8339",
+      "website": "https://www.angelinacounty.net",
+      "mailing_address": "215 E Lufkin Ave, Lufkin, TX 75901"
+    },
+    "title_companies": [
+      {
+        "name": "Angelina County Title Co.",
+        "address": "104 S 1st St, Lufkin, TX 75901",
+        "phone": "(936) 634-3351"
+      }
+    ]
+  },
+  "4": {
+    "county": "Aransas",
+    "seat": "Rockport",
+    "official_address": {
+      "name": "Aransas County Courthouse",
+      "address": "2840 TX-35 N, Rockport, TX 78382",
+      "phone": "(361) 790-0100",
+      "website": "https://www.aransascounty.org",
+      "mailing_address": "2840 TX-35 N, Rockport, TX 78382"
+    },
+    "title_companies": [
+      {
+        "name": "Aransas Title Company",
+        "address": "801 E Concho St, Rockport, TX 78382",
+        "phone": "(361) 729-5622"
+      }
+    ]
+  },
+  "5": {
+    "county": "Archer",
+    "seat": "Archer City",
+    "official_address": {
+      "name": "Archer County Courthouse",
+      "address": "100 S Center St, Archer City, TX 76351",
+      "phone": "(940) 574-4302",
+      "website": "https://www.co.archer.tx.us",
+      "mailing_address": "100 S Center St, Archer City, TX 76351"
+    },
+    "title_companies": [
+      {
+        "name": "Archer County Abstract Company",
+        "address": "116 N Center St, Archer City, TX 76351",
+        "phone": "(940) 574-4921"
+      }
+    ]
+  },
+  "6": {
+    "county": "Armstrong",
+    "seat": "Claude",
+    "official_address": {
+      "name": "Armstrong County Courthouse",
+      "address": "100 Trice St, Claude, TX 79019",
+      "phone": "(806) 226-3221",
+      "website": "https://www.co.armstrong.tx.us",
+      "mailing_address": "100 Trice St, Claude, TX 79019"
+    },
+    "title_companies": [
+      {
+        "name": "Claude Abstract & Title Company",
+        "address": "113 Trice St, Claude, TX 79019",
+        "phone": "(806) 226-3204"
+      }
+    ]
+  },
+  "7": {
+    "county": "Atascosa",
+    "seat": "Jourdanton",
+    "official_address": {
+      "name": "Atascosa County Courthouse",
+      "address": "1 Courthouse Circle Dr, Jourdanton, TX 78026",
+      "phone": "(830) 769-1020",
+      "website": "https://www.atascosacounty.texas.gov",
+      "mailing_address": "1 Courthouse Circle Dr, Jourdanton, TX 78026"
+    },
+    "title_companies": [
+      {
+        "name": "Atascosa County Abstract & Title Co.",
+        "address": "1405 Campbell Ave, Jourdanton, TX 78026",
+        "phone": "(830) 769-3496"
+      }
+    ]
+  },
+  "8": {
+    "county": "Austin",
+    "seat": "Bellville",
+    "official_address": {
+      "name": "Austin County Courthouse",
+      "address": "1 E Main St, Bellville, TX 77418",
+      "phone": "(979) 865-5911",
+      "website": "https://www.austincounty.com",
+      "mailing_address": "1 E Main St, Bellville, TX 77418"
+    },
+    "title_companies": [
+      {
+        "name": "Austin County Abstract & Title Co.",
+        "address": "26 E Main St, Bellville, TX 77418",
+        "phone": "(979) 865-2222"
+      }
+    ]
+  },
+  "9": {
+    "county": "Bailey",
+    "seat": "Muleshoe",
+    "official_address": {
+      "name": "Bailey County Courthouse",
+      "address": "300 S 1st St, Muleshoe, TX 79347",
+      "phone": "(806) 272-3044",
+      "website": "https://www.co.bailey.tx.us",
+      "mailing_address": "300 S 1st St, Muleshoe, TX 79347"
+    },
+    "title_companies": [
+      {
+        "name": "Bailey County Abstract & Title Co.",
+        "address": "200 W American Blvd, Muleshoe, TX 79347",
+        "phone": "(806) 272-4578"
+      }
+    ]
+  },
+  "10": {
+    "county": "Bandera",
+    "seat": "Bandera",
+    "official_address": {
+      "name": "Bandera County Courthouse",
+      "address": "500 Main St, Bandera, TX 78003",
+      "phone": "(830) 796-4507",
+      "website": "https://www.banderacounty.org",
+      "mailing_address": "500 Main St, Bandera, TX 78003"
+    },
+    "title_companies": [
+      {
+        "name": "Bandera County Title & Abstract Company",
+        "address": "207 Main St, Bandera, TX 78003",
+        "phone": "(830) 796-3766"
+      }
+    ]
+  }
+}
